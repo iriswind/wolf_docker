@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    image: php:7.2-apache
+    build:
+        context: ./php/
+        dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/logs:/var/log/apache2
+  postgres:
+    image: postgres:10
+    build:
+        context: ./pgsql/
+        dockerfile: Dockerfile
+    volumes:
+      - ./pgsql/data:/var/lib/pgsql/10/data
+    ports:
+      - 5432:5432
